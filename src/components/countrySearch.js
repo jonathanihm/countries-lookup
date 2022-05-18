@@ -58,15 +58,21 @@ const CountrySearch = ({ setCountries, setLoading, setError }) => {
     }
 
   return (
-    <form onSubmit={handleSubmit}>
-        <input value={searchValue} onChange={onChangeHandler} />
-        <select value={searchType} onChange={e => setSearchType(e.currentTarget.value)}>
-            <option value="name">Name</option>
-            <option value="fullName">Full Name</option>
-            <option value="code">Country Code</option>
-        </select>
-        <button type="submit">Search</button>
-    </form>
+      <header className="lg:text-center">
+        <form onSubmit={handleSubmit} className="w-full text-black bg-white bg-opacity-10 shadow-md rounded inline-flex flex sm:flex px-4 pt-6 pb-8 mb-4 flex-col items-stretch">
+            <div className="flex-1 flex flex-col sm:flex-row">
+                <input value={searchValue} onChange={onChangeHandler} className="text-black mt-1 flex-1 shadow appearance-none border rounded sm:rounded-none sm:rounded-l w-full h-16 px-3 focus:outline-none focus:shadow-outline py-4 sm:py-2" />
+                <select value={searchType} onChange={e => setSearchType(e.currentTarget.value)} className="text-black mt-1 flex-1 shadow appearance-none border w-full h-16 px-3 focus:outline-none focus:shadow-outline py-4 sm:py-2">
+                    <option value="name">Name</option>
+                    <option value="fullName">Full Name</option>
+                    <option value="code">Country Code</option>
+                </select>
+                <div className="flex items-center justify-between mb-1 contents">
+                    <button type="submit" className="btn btn-xl btn-primary mt-1 rounded sm:rounded-none sm:rounded-r bg-blue-500 p-2 text-white">Search</button>
+                </div>
+            </div>
+        </form>
+      </header>
   )
 }
 
