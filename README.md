@@ -3,7 +3,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 Please ensure both the start and server scripts are running. 
-
+### `npm install`
 ### `npm run start`
 ### `npm run server`
 

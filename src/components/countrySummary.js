@@ -10,7 +10,7 @@ const CountrySummary = ({ countries, loading }) => {
         return lookup;
     }, {});
     
-    const subRegionCount = countries.map(country => country.subregion).reduce((lookup, subregion) => {
+    const subRegionCount = countries.map(country => country.subregion).filter(x => x).reduce((lookup, subregion) => {
         if (!lookup.hasOwnProperty(subregion)) {
             lookup[subregion] = 0;
         }
