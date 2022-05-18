@@ -4,6 +4,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Please ensure both the start and server scripts are running. 
 
+### `npm run start`
+### `npm run server`
+
+If the server fails to start, you may have to install nodemon globally via npm
+
+### `npm install -g nodemon`
+
 ## Available Scripts
 
 In the project directory, you can run:
