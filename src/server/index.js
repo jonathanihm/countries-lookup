@@ -17,20 +17,24 @@ function handleErrors(response) {
   return response;
 }
 
-let corsOptions = {
+const sortByPopulation = (countries) => {
+  let x = countries.sort((a, b) => a.population > b.population ? a : b);
+  return x;
+};
+
+const corsOptions = {
   origin: 'http://localhost:3000'
 }
 
 app.get('/list', cors(corsOptions), async (req, res) => {
-    let data = {};
-    const response = await fetch('https://restcountries.com/v3/all');
+  const response = await fetch('https://restcountries.com/v3/all');
 
   res.send(await response.json());
 });
 
 app.get('/name/:name', cors(corsOptions), async (req, res) => {
   console.log(req.params.name);
-  const response = await fetch(`https://restcountries.com/v3.1/name/${req.params.name}?fields=name`)
+  const response = await fetch(`https://restcountries.com/v3.1/name/${req.params.name}`)
     .then(handleErrors)
     .catch(function(error) {
       console.log(`Error ${error.status}`);
@@ -38,6 +42,9 @@ app.get('/name/:name', cors(corsOptions), async (req, res) => {
 
   if (response) {
     let result = await response.json();
+    result.sort((a, b) => b.population - a.population);
+    console.log(result)
+
     res.send(result);
   } else {
     res.sendStatus(404);
@@ -45,8 +52,7 @@ app.get('/name/:name', cors(corsOptions), async (req, res) => {
 });
 
 app.get('/full-name/:name', cors(corsOptions), async (req, res) => {
-  console.log(req.params.name);
-  const response = await fetch(`https://restcountries.com/v3.1/name/${req.params.name}?fullText=true&fields=name`)
+  const response = await fetch(`https://restcountries.com/v3.1/name/${req.params.name}?fullText=true`)
     .then(handleErrors)
     .catch(function(error) {
       console.log(`Error ${error.status}`);
@@ -54,6 +60,8 @@ app.get('/full-name/:name', cors(corsOptions), async (req, res) => {
 
   if (response) {
     let result = await response.json();
+    result.sort((a, b) => b.population - a.population);
+
     res.send(result);
   } else {
     res.sendStatus(404);
@@ -61,7 +69,6 @@ app.get('/full-name/:name', cors(corsOptions), async (req, res) => {
 });
 
 app.get('/alpha/:code', cors(corsOptions), async (req, res) => {
-  console.log(req.params.name);
   const response = await fetch(`https://restcountries.com/v3.1/alpha/${req.params.code}`)
     .then(handleErrors)
     .catch(function(error) {
@@ -70,6 +77,8 @@ app.get('/alpha/:code', cors(corsOptions), async (req, res) => {
 
   if (response) {
     let result = await response.json();
+    result.sort((a, b) => b.population - a.population);
+
     res.send(result);
   } else {
     res.sendStatus(404);

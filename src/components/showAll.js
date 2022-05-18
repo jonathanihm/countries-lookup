@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+//deprecated list all component, not used in client app
 const ShowAll = () => {
     const [loading, setLoading] = useState(false);
     const [countries, setCountries] = useState([]);

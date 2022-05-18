@@ -1,15 +1,12 @@
 import { React, useState } from 'react'
 
 
-const CountrySearch = ({ setCountries, setLoading }) => {
+const CountrySearch = ({ setCountries, setLoading, setError }) => {
     const CODE_TYPE = 'code';
     const NAME_TYPE = 'name';
     const FULL_NAME_TYPE = 'fullName';
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' },
-    ];
+    const NO_SEARCH_TERM_ERROR = 'Please Enter Your Search Term';
+    const NO_RESULTS_ERROR = 'No Results Found';
 
     const [searchValue, setSearchValue] = useState('');
     const [searchType, setSearchType] = useState('name')
@@ -20,8 +17,17 @@ const CountrySearch = ({ setCountries, setLoading }) => {
 
     let handleSubmit = (event) => {
         event.preventDefault();
+        setError('');
+
+        if (!searchValue) {
+            setError(NO_SEARCH_TERM_ERROR);
+            return;
+        }
+
         setLoading(true);
 
+        // NOTE: if we want to remove the dropdown to select the type of search,
+        // we would need to make all three API calls and merge the results, which could be expensive 
         let endpoint = '';
         switch (searchType) {
             case CODE_TYPE:
@@ -44,8 +50,8 @@ const CountrySearch = ({ setCountries, setLoading }) => {
               setLoading(false);
             })
             .catch(function() {
-                console.log('Google-  not so OK');
-              });
+                setError(NO_RESULTS_ERROR);
+            });
         }
     
         fetchData();
