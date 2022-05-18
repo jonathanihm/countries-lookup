@@ -13,14 +13,8 @@ function handleErrors(response) {
     };
     throw(responseError);
   }
-  console.log(response)
   return response;
 }
-
-const sortByPopulation = (countries) => {
-  let x = countries.sort((a, b) => a.population > b.population ? a : b);
-  return x;
-};
 
 const corsOptions = {
   origin: 'http://localhost:3000'
@@ -43,7 +37,6 @@ app.get('/name/:name', cors(corsOptions), async (req, res) => {
   if (response) {
     let result = await response.json();
     result.sort((a, b) => b.population - a.population);
-    console.log(result)
 
     res.send(result);
   } else {
