@@ -1,33 +1,18 @@
 import './App.css';
 import { useEffect, useState } from 'react';
+import CountryResults from './components/countryResults.js';
+import CountrySearch from './components/countrySearch.js';
 
 function App() {
   const [loading, setLoading] = useState(false);
   const [countries, setCountries] = useState([]);
-  useEffect(() => {
-    setLoading(true);
-    const fetchData = async () => {
-      await fetch('http://localhost:3001/list')
-        .then((response) => response.json())
-        .then((data) => {
-          setCountries(data);
-          setLoading(false);
-        });
-    }
-
-    fetchData();
-  }, [])
 
   return (
     <div className="App">
       <header className="App-header">
-        <div>
-          {loading ? 'Loading' : countries.map((country) => (
-            <div key={country.name}>
-              {country.name}
-            </div>
-          ))}
-        </div>
+        {/* <ShowAll /> */}
+        <CountrySearch setCountries={setCountries} setLoading={setLoading} />
+        <CountryResults countries={countries} loading={loading} />
       </header>
     </div>
   );
